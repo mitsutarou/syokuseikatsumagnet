@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>シンプルルーレット</title>
+  <title>ランダムルーレット</title>
   <style>
     body {
       text-align: center;
@@ -17,38 +17,28 @@
       font-size: 20px;
       padding: 10px 20px;
       border: none;
-      background-color: #ff6f61;
+      background-color: #00b894;
       color: white;
       border-radius: 10px;
       cursor: pointer;
     }
     button:hover {
-      background-color: #e35b50;
+      background-color: #019875;
     }
   </style>
 </head>
 <body>
 
-  <h1>ルーレット</h1>
+  <h1>ランダムルーレット</h1>
   <div id="roulette">？</div>
-  <button onclick="startRoulette()">回す！</button>
+  <button onclick="spinRoulette()">回す！</button>
 
   <script>
     const items = ["🍎 りんご", "🍌 バナナ", "🍇 ぶどう", "🍓 いちご", "🍊 みかん"];
-    let interval;
-    let current = 0;
 
-    function startRoulette() {
-      clearInterval(interval);
-      let count = 0;
-      interval = setInterval(() => {
-        document.getElementById("roulette").textContent = items[current % items.length];
-        current++;
-        count++;
-        if (count > 30) { // 一定時間でストップ
-          clearInterval(interval);
-        }
-      }, 100);
+    function spinRoulette() {
+      const result = items[Math.floor(Math.random() * items.length)];
+      document.getElementById("roulette").textContent = result;
     }
   </script>
 

@@ -1,47 +1,157 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>ランダムルーレット</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>献立ルーレット</title>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300&display=swap" rel="stylesheet">
   <style>
     body {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      background-color: #fffefa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .side-band {
+      width: 10%;
+      background-color: rgba(200, 200, 200, 0.2);
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
       text-align: center;
-      font-family: sans-serif;
-      margin-top: 100px;
     }
-    #roulette {
-      font-size: 40px;
-      margin: 20px;
+
+    #result-container {
+      width: 200px;
+      height: 60px;
+      overflow: hidden;
+      border: 2px dashed #ccc;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 2rem;
     }
+
+    #result {
+      font-size: 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .animate-big {
+      animation: jump 0.6s ease;
+    }
+
+    @keyframes jump {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.6); }
+      100% { transform: scale(1); }
+    }
+
     button {
-      font-size: 20px;
-      padding: 10px 20px;
-      border: none;
-      background-color: #3498db; /* 青色 */
+      padding: 12px 24px;
+      font-size: 0.95rem;
+      background-color: #007BFF;
       color: white;
-      border-radius: 10px;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.3s;
     }
+
     button:hover {
-      background-color: #2980b9; /* 濃い青 */
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+      .side-band {
+        display: none;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 0.85rem;
+        padding: 10px 20px;
+      }
+
+      #result {
+        font-size: 1.6rem;
+      }
+
+      #result-container {
+        width: 160px;
+        height: 50px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="wrapper">
+    <div class="side-band"></div>
 
-  <h1>ランダムルーレット</h1>
-  <div id="roulette">？</div>
-  <button onclick="spinRoulette()">回す！</button>
+    <div class="main-content">
+      <h1>献立ルーレット</h1>
+      <div id="result-container">
+        <div id="result">🍚</div>
+      </div>
+      <button onclick="spin()">ルーレットを回す</button>
+    </div>
+
+    <div class="side-band"></div>
+  </div>
 
   <script>
-    const items = ["🍎 りんご", "🍌 バナナ", "🍇 ぶどう", "🍓 いちご", "🍊 みかん"];
+    const items = ['からあげ🍗', 'カレー🍛', 'シチュー🥣', '焼き魚🐟', '野菜炒め🥩🥕'];
+    const resultDiv = document.getElementById('result');
 
-    function spinRoulette() {
-      const result = items[Math.floor(Math.random() * items.length)];
-      document.getElementById("roulette").textContent = result;
+    function spin() {
+      resultDiv.classList.remove('animate-big');
+      let count = 0;
+      let speed = 100;
+      let maxCount = 20 + Math.floor(Math.random() * 20);
+
+      const spinInterval = setInterval(() => {
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+        resultDiv.textContent = randomItem;
+        count++;
+        speed += 10;
+
+        if (count >= maxCount) {
+          clearInterval(spinInterval);
+          setTimeout(() => {
+            const finalItem = items[Math.floor(Math.random() * items.length)];
+            resultDiv.textContent = finalItem;
+            resultDiv.classList.add('animate-big');
+          }, speed);
+        }
+      }, speed);
     }
   </script>
-
 </body>
 </html>

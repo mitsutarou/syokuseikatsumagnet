@@ -1,1 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>献立ルーレット</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Kosugi Maru', sans-serif;
+      background-color: #f8f7e7;
+      color: #9a7956;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    #result-container {
+      width: 250px;
+      height: auto;
+      padding: 20px;
+      border: 3px dashed #9a7956;
+      border-radius: 30px;
+      background-color: #fffefa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    #result-img {
+      width: 180px;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 10px;
+    }
+
+    #result-text {
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .animate-big {
+      animation: jump 0.6s ease;
+    }
+
+    @keyframes jump {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #f4af43;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    button:hover {
+      background-color: #e29c3a;
+    }
+
+    .link-buttons {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .link-buttons button {
+      padding: 6px 12px;
+      background-color: #74c7d2;
+      font-size: 0.75rem;
+      border-radius: 20px;
+    }
+
+    .link-buttons button:hover {
+      background-color: #5bb5c2;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      #result-container {
+        width: 90%;
+        padding: 16px;
+      }
+
+      #result-img {
+        width: 150px;
+      }
+
+      #result-text {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>献立ルーレット</h1>
+    <div id="result-container">
+      <img id="result-img" src="ryouri01.png" alt="料理画像">
+      <div id="result-text">🍚</div>
+    </div>
+    <button onclick="spin()">ルーレットを回す</button>
+
+    <div class="link-buttons">
+      <button onclick="location.href='01.html'">01</button>
+      <button onclick="location.href='02.html'">02</button>
+      <button onclick="location.href='03.html'">03</button>
+      <button onclick="location.href='04.html'">04</button>
+      <button onclick="location.href='05.html'">05</button>
+      <button onclick="location.href='06.html'">06</button>
+      <button onclick="location.href='07.html'">07</button>
+      <button onclick="location.href='08.html'">08</button>
+      <button onclick="location.href='09.html'">09</button>
+      <button onclick="location.href='10.html'">10</button>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      { name: 'からあげ🍗', image: 'ryouri01.png' },
+      { name: 'カレーライス🍛', image: 'ryouri02.png' },
+      { name: 'ハンバーグ🍖', image: 'ryouri03.png' },
+      { name: '焼き魚🐟', image: 'ryouri04.png' }
+    ];
+
+    const resultImg = document.getElementById('result-img');
+    const resultText = document.getElementById('result-text');
+
+    function spin() {
+      resultText.classList.remove('animate-big');
+      resultImg.classList.remove('animate-big');
+
+      let count = 0;
+      let speed = 100;
+      let maxCount = 20 + Math.floor(Math.random() * 20);
+
+      const spinInterval = setInterval(() => {
+        const randomItem = items[Math.floor(Math.random() * items.length)];
+        resultText.textContent = randomItem.name;
+        resultImg.src = randomItem.image;
+        count++;
+        speed += 10;
+
+        if (count >= maxCount) {
+          clearInterval(spinInterval);
+          setTimeout(() => {
+            const finalItem = items[Math.floor(Math.random() * items.length)];
+            resultText.textContent = finalItem.name;
+            resultImg.src = finalItem.image;
+            resultText.classList.add('animate-big');
+            resultImg.classList.add('animate-big');
+          }, speed);
+        }
+      }, speed);
+    }
+  </script>
+</body>
+</html>
 

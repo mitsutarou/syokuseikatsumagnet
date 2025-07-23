@@ -161,20 +161,20 @@
       let count = 0;
       let speed = 100;
       let maxCount = 20 + Math.floor(Math.random() * 20);
+      let lastItem = null;
 
       const spinInterval = setInterval(() => {
-        const randomItem = items[Math.floor(Math.random() * items.length)];
-        resultDiv.textContent = randomItem.name;
-        imageTag.src = randomItem.image;
+        lastItem = items[Math.floor(Math.random() * items.length)];
+        resultDiv.textContent = lastItem.name;
+        imageTag.src = lastItem.image;
         count++;
         speed += 10;
 
         if (count >= maxCount) {
           clearInterval(spinInterval);
           setTimeout(() => {
-            const finalItem = items[Math.floor(Math.random() * items.length)];
-            resultDiv.textContent = finalItem.name;
-            imageTag.src = finalItem.image;
+            resultDiv.textContent = lastItem.name;
+            imageTag.src = lastItem.image;
             resultDiv.classList.add('animate-big');
           }, speed);
         }

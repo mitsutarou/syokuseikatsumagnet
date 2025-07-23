@@ -1,88 +1,91 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>固定ページ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>テキストページ</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      height: 100%;
       background-color: #f8f7e7;
-      font-family: 'Kosugi Maru', sans-serif;
       color: #9a7956;
-      overflow: hidden; /* スクロール禁止 */
-    }
-
-    .container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
     }
 
     .header, .footer {
-      height: 130px; /* +50px */
-      flex-shrink: 0;
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 60px; /* ← 半分にした高さ */
+      background-color: #f8f7e7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .header {
+      top: 0;
+    }
+
+    .footer {
+      bottom: 0;
     }
 
     .header img, .footer img {
-      width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.2rem;
+      padding: 80px 10% 80px 10%; /* 上下に余白を加えてヘッダー・フッターと被らないように */
     }
 
-    @media (max-width: 600px) {
-      .header, .footer {
-        height: 110px;
-      }
-
-      .content {
-        font-size: 1rem;
-        padding: 16px;
-      }
+    .text-area {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <img id="header-img" src="header01.png" alt="ヘッダー画像">
-    </div>
+  <!-- ヘッダー -->
+  <div class="header">
+    <img id="headerImage" src="header01.png" alt="ヘッダー画像">
+  </div>
 
-    <div class="content">
-      <p>
-        ここにテキストが入ります。<br>
-        上下に同じアニメーション画像が交互に表示されます。
-      </p>
-    </div>
-
-    <div class="footer">
-      <img id="footer-img" src="header01.png" alt="フッター画像">
+  <!-- 本文 -->
+  <div class="content">
+    <div class="text-area">
+      02<br>
+このシートでは、五大栄養素のはたらきと、1日に必要な量と食材について説明しています。<br>
+こぶしのマークはこぶし大ほどの量を摂取してねという意味です。こぶし大は、個人差はありますが、大体200gくらいです。<br>
+青い点線でかこまれているものは、その大きさに乗るくらいの量を食べてねという意味です。<br>
+油は、第一関節くらいの体積分以内に収めることが良いとされています。<br>
     </div>
   </div>
 
+  <!-- フッター -->
+  <div class="footer">
+    <img id="footerImage" src="header01.png" alt="フッター画像">
+  </div>
+
+  <!-- 切り替えスクリプト -->
   <script>
-    const headerImages = ['header01.png', 'header02.png'];
-    let index = 0;
+    const headerImg = document.getElementById('headerImage');
+    const footerImg = document.getElementById('footerImage');
+    let isFirst = true;
 
     setInterval(() => {
-      index = (index + 1) % 2;
-      const nextSrc = headerImages[index];
-      document.getElementById('header-img').src = nextSrc;
-      document.getElementById('footer-img').src = nextSrc;
-    }, 900);
+      const src = isFirst ? 'header02.png' : 'header01.png';
+      headerImg.src = src;
+      footerImg.src = src;
+      isFirst = !isFirst;
+    }, 500); // 0.5秒ごとに切り替え
   </script>
 </body>
 </html>

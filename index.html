@@ -3,167 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>献立ルーレット</title>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300&display=swap" rel="stylesheet">
+  <title>ページ選択</title>
   <style>
     body {
-      font-family: 'Zen Kaku Gothic New', sans-serif;
-      background-color: #fffefa;
-      color: #333;
       margin: 0;
       padding: 0;
+      background-color: #f8f7e7;
+      color: #9a7956;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
     }
 
-    .wrapper {
+    .header, .footer {
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #f8f7e7;
       display: flex;
-      min-height: 100vh;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
     }
 
-    .side-band {
-      width: 10%;
-      background-color: rgba(200, 200, 200, 0.2);
+    .header {
+      top: 0;
     }
 
-    .main-content {
-      flex: 1;
+    .footer {
+      bottom: 0;
+    }
+
+    .header img, .footer img {
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .content {
+      padding: 80px 10% 80px 10%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .button-grid {
+      display: flex;
+      gap: 40px;
+    }
+
+    .column {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      gap: 20px;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    #result-container {
-      width: 200px;
-      height: 60px;
-      overflow: hidden;
-      border: 2px dashed #ccc;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 2rem;
-    }
-
-    #result {
-      font-size: 2rem;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease;
-    }
-
-    .animate-big {
-      animation: jump 0.6s ease;
-    }
-
-    @keyframes jump {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.6); }
-      100% { transform: scale(1); }
-    }
-
-    button {
-      padding: 12px 24px;
-      font-size: 0.95rem;
-      background-color: #007BFF;
-      color: white;
+    .page-button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background-color: #9a7956;
+      color: #fff;
       border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin-top: 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      text-align: center;
+      transition: background-color 0.2s;
     }
 
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    @media (max-width: 600px) {
-      .side-band {
-        display: none;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-
-      button {
-        font-size: 0.85rem;
-        padding: 10px 20px;
-      }
-
-      #result {
-        font-size: 1.6rem;
-      }
-
-      #result-container {
-        width: 160px;
-        height: 50px;
-      }
+    .page-button:hover {
+      background-color: #bfa27f;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="side-band"></div>
 
-    <div class="main-content">
-      <h1>献立ルーレット</h1>
-      <div id="result-container">
-        <div id="result">🍚</div>
-      </div>
-      <button onclick="spin()">ルーレットを回す</button>
-      <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-  <button onclick="location.href='01.html'">01.html</button>
-  <button onclick="location.href='02.html'">02.html</button>
-  <button onclick="location.href='03.html'">03.html</button>
-  <button onclick="location.href='04.html'">04.html</button>
-  <button onclick="location.href='05.html'">05.html</button>
-  <button onclick="location.href='06.html'">06.html</button>
-  <button onclick="location.href='07.html'">07.html</button>
-  <button onclick="location.href='08.html'">08.html</button>
-  <button onclick="location.href='09.html'">09.html</button>
-  <button onclick="location.href='10.html'">10.html</button>
-    </div>
-
-    <div class="side-band"></div>
+  <!-- ヘッダー -->
+  <div class="header">
+    <img id="headerImage" src="header01.png" alt="ヘッダー画像">
   </div>
 
+  <!-- コンテンツ -->
+  <div class="content">
+    <div class="button-grid">
+      <div class="column">
+        <a href="01.html" class="page-button">01</a>
+        <a href="02.html" class="page-button">02</a>
+        <a href="03.html" class="page-button">03</a>
+        <a href="04.html" class="page-button">04</a>
+        <a href="05.html" class="page-button">05</a>
+      </div>
+      <div class="column">
+        <a href="06.html" class="page-button">06</a>
+        <a href="07.html" class="page-button">07</a>
+        <a href="08.html" class="page-button">08</a>
+        <a href="09.html" class="page-button">09</a>
+        <a href="10.html" class="page-button">10</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer">
+    <img id="footerImage" src="header01.png" alt="フッター画像">
+  </div>
+
+  <!-- スクリプト（0.5秒ごとに画像切り替え） -->
   <script>
-    const items = ['からあげ🍗', 'カレー🍛', 'シチュー🥣', '焼き魚🐟', '野菜炒め🥩🥕'];
-    const resultDiv = document.getElementById('result');
+    const headerImg = document.getElementById('headerImage');
+    const footerImg = document.getElementById('footerImage');
+    let toggle = true;
 
-    function spin() {
-      resultDiv.classList.remove('animate-big');
-      let count = 0;
-      let speed = 100;
-      let maxCount = 20 + Math.floor(Math.random() * 20);
-
-      const spinInterval = setInterval(() => {
-        const randomItem = items[Math.floor(Math.random() * items.length)];
-        resultDiv.textContent = randomItem;
-        count++;
-        speed += 10;
-
-        if (count >= maxCount) {
-          clearInterval(spinInterval);
-          setTimeout(() => {
-            const finalItem = items[Math.floor(Math.random() * items.length)];
-            resultDiv.textContent = finalItem;
-            resultDiv.classList.add('animate-big');
-          }, speed);
-        }
-      }, speed);
-    }
+    setInterval(() => {
+      const nextSrc = toggle ? 'header02.png' : 'header01.png';
+      headerImg.src = nextSrc;
+      footerImg.src = nextSrc;
+      toggle = !toggle;
+    }, 500);
   </script>
+
 </body>
 </html>

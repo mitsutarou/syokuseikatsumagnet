@@ -1,101 +1,101 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>固定ページ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>テキストページ</title>
   <style>
-    html, body {
+    body {
       margin: 0;
       padding: 0;
-      height: 100%;
       background-color: #f8f7e7;
-      font-family: 'Kosugi Maru', sans-serif;
       color: #9a7956;
-      overflow: hidden; /* スクロール禁止 */
-    }
-
-    .container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      overflow: hidden;
     }
 
     .header, .footer {
-      height: 130px; /* +50px */
-      flex-shrink: 0;
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background-color: #f8f7e7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .header {
+      top: 10px; /* 少し下に余白 */
+    }
+
+    .footer {
+      bottom: 10px; /* 少し上に余白 */
     }
 
     .header img, .footer img {
-      width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .content {
-      flex: 1;
+      position: absolute;
+      top: 140px;
+      bottom: 140px;
+      left: 10%;
+      right: 10%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.2rem;
+      text-align: left;
     }
 
     .text-area {
-  text-align: left;          /* 左揃え */
-  letter-spacing: 0.05em;    /* 少し広めの文字間 */
-  line-height: 1.6;          /* 少し広めの行間 */
-  font-size: 1rem;           /* 必要に応じて調整 */
-}
-
-
-    @media (max-width: 600px) {
-      .header, .footer {
-        height: 110px;
-      }
-
-      .content {
-        font-size: 1rem;
-        padding: 16px;
-      }
+      font-size: 1.1rem;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      max-width: 600px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <img id="header-img" src="header01.png" alt="ヘッダー画像">
-    </div>
+  <!-- ヘッダー画像 -->
+  <div class="header">
+    <img id="headerImage" src="header01.png" alt="ヘッダー画像">
+  </div>
 
-    <div class="content">
-      <p>
-        01<br>
+  <!-- 中央テキストエリア -->
+  <div class="content">
+    <div class="text-area">
+      01<br>
 このシートでは、五大栄養素と、その代表的な食材、五大栄養素の3つの働きについて説明しています。<br>
 炭水化物は、いわゆる主食に分類されるものが多いです。お米に、パンに、麺…野菜に思えるじゃがいもも実は炭水化物です。<br>
 脂質は、油を多く含む食品が代表としてあげられています。マヨネーズやバターはもちろん、ベーコンなどの加工肉、ナッツなどが含まれます。太ってしまうと思って摂らない人がいるかもしれませんが、脂質も大切な栄養素のひとつです。<br>
 たんぱく質は、たまご、肉、魚、納豆などの大豆製品、チーズなどが含まれます。エネルギーの元になったり、体を作る大事な栄養素です。<br>
 ミネラルは、乳製品や海藻類などが挙げられます。カルシウムや鉄、亜鉛など、体内で作ることができず、食事などから摂取する必要がある栄養素です。<br>
 ビタミンは、野菜や果物、きのこ類に多く含まれます。ビタミンも、体内では作られないので、きちんと摂取することが大切です。
-      </p>
-    </div>
 
-    <div class="footer">
-      <img id="footer-img" src="header01.png" alt="フッター画像">
     </div>
   </div>
 
+  <!-- フッター画像 -->
+  <div class="footer">
+    <img id="footerImage" src="header01.png" alt="フッター画像">
+  </div>
+
+  <!-- 画像切り替えスクリプト -->
   <script>
-    const headerImages = ['header01.png', 'header02.png'];
-    let index = 0;
+    const headerImg = document.getElementById('headerImage');
+    const footerImg = document.getElementById('footerImage');
+    let isFirst = true;
 
     setInterval(() => {
-      index = (index + 1) % 2;
-      const nextSrc = headerImages[index];
-      document.getElementById('header-img').src = nextSrc;
-      document.getElementById('footer-img').src = nextSrc;
-    }, 900);
+      const src = isFirst ? 'header02.png' : 'header01.png';
+      headerImg.src = src;
+      footerImg.src = src;
+      isFirst = !isFirst;
+    }, 500); // 0.5秒おきに切り替え
   </script>
 </body>
 </html>

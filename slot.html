@@ -15,11 +15,16 @@
       overflow: hidden;
     }
 
-    .header, .footer {
+    header, footer {
+      height: 70px;
       width: 100%;
-      height: 250px;
-      background-size: cover;
-      background-position: center;
+      overflow: hidden;
+    }
+
+    header img, footer img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
     }
 
     .main-content {
@@ -27,53 +32,44 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: calc(100vh - 500px); /* ヘッダーとフッターの合計高さを引く */
-      padding: 20px;
+      height: calc(100vh - 140px); /* header + footer 高さ分除く */
+      padding: 10px;
+      box-sizing: border-box;
     }
 
-    .title-image {
+    #title-image {
       width: 220px;
       height: auto;
-      margin-bottom: 1.5rem;
+      margin-bottom: 20px;
     }
 
     #result-container {
-      width: 220px;
-      height: 220px;
-      overflow: hidden;
-      border: 4px dashed #9a7956;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 2rem;
-      background-color: #fffefa;
-    }
-
-    #result {
-      font-size: 1.4rem;
+      width: 100%;
+      max-width: 280px;
+      height: 300px;
+      border: 2px dashed #9a7956;
+      border-radius: 20px;
+      background-color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-sizing: border-box;
+      text-align: center;
     }
 
-    #result img {
-      width: 120px;
-      height: 120px;
-      object-fit: contain;
-      margin-bottom: 0.5rem;
+    #result-container img {
+      width: 160px;
+      height: auto;
+      margin-bottom: 10px;
+      border-radius: 12px;
     }
 
-    .animate-big {
-      animation: jump 0.6s ease;
-    }
-
-    @keyframes jump {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.6); }
-      100% { transform: scale(1); }
+    #result-text {
+      font-size: 1.5rem;
+      word-break: keep-all;
     }
 
     button {
@@ -88,79 +84,78 @@
     }
 
     button:hover {
-      background-color: #e19a1f;
+      background-color: #d9992d;
     }
 
     @media (max-width: 600px) {
-      .header, .footer {
-        height: 200px;
-      }
-
-      .main-content {
-        height: calc(100vh - 400px);
-        padding: 10px;
-      }
-
       #result-container {
-        width: 180px;
-        height: 180px;
+        height: auto;
+        max-height: 320px;
       }
 
-      #result img {
-        width: 100px;
-        height: 100px;
+      #result-container img {
+        width: 140px;
       }
 
-      .title-image {
-        width: 180px;
-      }
-
-      button {
-        font-size: 0.9rem;
-        padding: 10px 20px;
+      #result-text {
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="header" id="header"></div>
+  <header>
+    <img id="header-img" src="header01.png" alt="header">
+  </header>
 
   <div class="main-content">
-    <img src="title.png" alt="献立ルーレット" class="title-image" />
+    <img id="title-image" src="title.png" alt="タイトル画像">
+
     <div id="result-container">
-      <div id="result">
-        <img src="ryouri01.png" alt="料理" />
-        <div>料理名</div>
-      </div>
+      <img id="dish-image" src="ryouri01.png" alt="料理画像">
+      <div id="result-text">からあげ 🍗</div>
     </div>
+
     <button onclick="spin()">ルーレットを回す</button>
   </div>
 
-  <div class="footer" id="footer"></div>
+  <footer>
+    <img id="footer-img" src="header01.png" alt="footer">
+  </footer>
 
   <script>
     const items = [
-  { name: 'からあげ 🍗', image: 'ryouri01.png' },
-  { name: 'ハンバーグ 🍴', image: 'ryouri02.png' },
-  { name: '野菜炒め 🥬', image: 'ryouri03.png' },
-  { name: 'ビビンバ 🍳', image: 'ryouri04.png' },
-  { name: '焼きうどん 🍜', image: 'ryouri05.png' },
-  { name: '親子丼 🐣', image: 'ryouri06.png' },
-  { name: 'ミートソースパスタ 🍝', image: 'ryouri07.png' }
-];
+      { name: 'からあげ 🍗', image: 'ryouri01.png' },
+      { name: 'ハンバーグ 🍴', image: 'ryouri02.png' },
+      { name: '野菜炒め 🥬', image: 'ryouri03.png' },
+      { name: 'ビビンバ 🍳', image: 'ryouri04.png' },
+      { name: '焼きうどん 🍜', image: 'ryouri05.png' },
+      { name: '親子丼 🐣', image: 'ryouri06.png' },
+      { name: 'ミートソースパスタ 🍝', image: 'ryouri07.png' }
+    ];
 
+    const headerImg = document.getElementById('header-img');
+    const footerImg = document.getElementById('footer-img');
+    let headerToggle = true;
+    setInterval(() => {
+      headerToggle = !headerToggle;
+      const src = headerToggle ? 'header01.png' : 'header02.png';
+      headerImg.src = src;
+      footerImg.src = src;
+    }, 500);
 
-    const resultDiv = document.getElementById('result');
+    const resultText = document.getElementById('result-text');
+    const dishImage = document.getElementById('dish-image');
 
     function spin() {
-      resultDiv.classList.remove('animate-big');
       let count = 0;
       let speed = 100;
       let maxCount = 20 + Math.floor(Math.random() * 20);
 
       const spinInterval = setInterval(() => {
         const randomItem = items[Math.floor(Math.random() * items.length)];
-        resultDiv.innerHTML = `<img src="${randomItem.image}" alt="${randomItem.name}" /><div>${randomItem.name}</div>`;
+        resultText.textContent = randomItem.name;
+        dishImage.src = randomItem.image;
         count++;
         speed += 10;
 
@@ -168,27 +163,12 @@
           clearInterval(spinInterval);
           setTimeout(() => {
             const finalItem = items[Math.floor(Math.random() * items.length)];
-            resultDiv.innerHTML = `<img src="${finalItem.image}" alt="${finalItem.name}" /><div>${finalItem.name}</div>`;
-            resultDiv.classList.add('animate-big');
+            resultText.textContent = finalItem.name;
+            dishImage.src = finalItem.image;
           }, speed);
         }
       }, speed);
     }
-
-    // 画像切り替え（ヘッダーとフッター）
-    const header = document.getElementById('header');
-    const footer = document.getElementById('footer');
-    const headerImages = ['header01.png', 'header02.png'];
-    let currentImageIndex = 0;
-
-    function changeHeaderFooterImage() {
-      header.style.backgroundImage = `url(${headerImages[currentImageIndex]})`;
-      footer.style.backgroundImage = `url(${headerImages[currentImageIndex]})`;
-      currentImageIndex = (currentImageIndex + 1) % headerImages.length;
-    }
-
-    setInterval(changeHeaderFooterImage, 500);
-    changeHeaderFooterImage(); // 初回即時表示
   </script>
 </body>
 </html>

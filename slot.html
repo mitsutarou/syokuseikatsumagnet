@@ -2,209 +2,123 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>献立ルーレット</title>
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Zen Kaku Gothic New', sans-serif;
-      background-color: #f8f7e7;
-      color: #9a7956;
       margin: 0;
       padding: 0;
+      background-color: #f8f7e7;
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      color: #9a7956;
       overflow: hidden;
     }
 
-    header {
-      margin-top: 60px;
-      height: 60px;
+    .header, .footer {
+      position: fixed;
+      left: 0;
       width: 100%;
-      overflow: hidden;
-      box-sizing: border-box;
+      height: 60px;
+      background-color: #f8f7e7;
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 10;
     }
 
-    footer {
-      margin-top: -80px;
-      height: 60px;
-      width: 100%;
-      overflow: hidden;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .header {
+      top: 0;
     }
 
-    header img, footer img {
+    .footer {
+      bottom: 0;
+    }
+
+    .header img, .footer img {
       height: 100%;
       object-fit: contain;
     }
 
-    .main-content {
+    .content {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-top: -80px;
-      height: calc(100vh - 140px); /* 60px × 2 + 10px × 2 */
-      padding: 10px;
+      height: 100vh;
+      padding-top: 60px;
+      padding-bottom: 60px;
       box-sizing: border-box;
     }
 
-    .title-image {
-      width: 220px;
+    #title {
       margin-bottom: 20px;
+      height: 60px;
     }
 
-    #result-container {
-      width: 240px;
-      height: 240px;
-      overflow: hidden;
-      border: 2px dashed #9a7956;
-      border-radius: 20px;
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-
-    #dish-image {
-      width: 160px;
-      height: 160px;
+    #dish-img {
+      width: 300px;
+      height: 200px;
       object-fit: contain;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
-    #result {
-      font-size: 1.2rem;
-      text-align: center;
-    }
-
-    .animate-big {
-      animation: jump 0.6s ease;
-    }
-
-    @keyframes jump {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-      100% { transform: scale(1); }
-    }
-
-    button {
-      padding: 12px 24px;
-      font-size: 1rem;
-      background-color: #f4af43;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #e29b2f;
-    }
-
-    @media (max-width: 600px) {
-      #result-container {
-        width: 200px;
-        height: 200px;
-      }
-
-      #dish-image {
-        width: 130px;
-        height: 130px;
-      }
-
-      #result {
-        font-size: 1rem;
-      }
-
-      .title-image {
-        width: 180px;
-      }
-
-      button {
-        font-size: 0.9rem;
-        padding: 10px 20px;
-      }
+    #dish-name {
+      font-size: 2rem;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <header>
-    <img id="header-img" src="header01.png" alt="Header Image" />
-  </header>
 
-  <div class="main-content">
-    <img class="title-image" src="title.png" alt="献立ルーレットタイトル" />
-    <div id="result-container">
-      <img id="dish-image" src="ryouri01.png" alt="料理画像" />
-      <div id="result">からあげ🍗</div>
-    </div>
-    <button onclick="spin()">ルーレットを回す</button>
+  <!-- ヘッダー -->
+  <div class="header">
+    <img id="headerImage" src="header01.png" alt="ヘッダー画像">
   </div>
 
-  <footer>
-    <img id="footer-img" src="header01.png" alt="Footer Image" />
-  </footer>
+  <!-- メインコンテンツ -->
+  <div class="content">
+    <img id="title" src="title.png" alt="献立ルーレット">
+    <img id="dish-img" src="ryouri01.png" alt="料理画像">
+    <div id="dish-name">🍗からあげ</div>
+  </div>
 
+  <!-- フッター -->
+  <div class="footer">
+    <img id="footerImage" src="header01.png" alt="フッター画像">
+  </div>
+
+  <!-- スクリプト -->
   <script>
-    const items = [
-      { name: 'からあげ🍗', image: 'ryouri01.png' },
-      { name: 'ハンバーグ🍖', image: 'ryouri02.png' },
-      { name: '野菜炒め🥦', image: 'ryouri03.png' },
-      { name: 'ビビンバ🍳', image: 'ryouri04.png' },
-      { name: '焼きうどん🍜', image: 'ryouri01.png' },
-      { name: '親子丼🥚', image: 'ryouri02.png' },
-      { name: 'ミートソースパスタ🍝', image: 'ryouri03.png' }
-    ];
-
-    const resultDiv = document.getElementById('result');
-    const imageTag = document.getElementById('dish-image');
-
-    function spin() {
-      resultDiv.classList.remove('animate-big');
-      let count = 0;
-      let speed = 100;
-      let maxCount = 20 + Math.floor(Math.random() * 20);
-
-      const spinInterval = setInterval(() => {
-        const randomItem = items[Math.floor(Math.random() * items.length)];
-        resultDiv.textContent = randomItem.name;
-        imageTag.src = randomItem.image;
-        count++;
-        speed += 10;
-
-        if (count >= maxCount) {
-          clearInterval(spinInterval);
-          setTimeout(() => {
-            const finalItem = items[Math.floor(Math.random() * items.length)];
-            resultDiv.textContent = finalItem.name;
-            imageTag.src = finalItem.image;
-            resultDiv.classList.add('animate-big');
-          }, speed);
-        }
-      }, speed);
-    }
-
-    // ヘッダー＆フッター画像の切り替え
-    const headerImg = document.getElementById('header-img');
-    const footerImg = document.getElementById('footer-img');
+    const headerImg = document.getElementById('headerImage');
+    const footerImg = document.getElementById('footerImage');
     let toggle = true;
 
     setInterval(() => {
-      const src = toggle ? 'header02.png' : 'header01.png';
-      headerImg.src = src;
-      footerImg.src = src;
+      const nextSrc = toggle ? 'header02.png' : 'header01.png';
+      headerImg.src = nextSrc;
+      footerImg.src = nextSrc;
       toggle = !toggle;
     }, 500);
+
+    const dishes = [
+      { name: '🍗からあげ', image: 'ryouri01.png' },
+      { name: '🍖ハンバーグ', image: 'ryouri02.png' },
+      { name: '🥬野菜炒め', image: 'ryouri03.png' },
+      { name: '🥢ビビンバ', image: 'ryouri04.png' },
+      { name: '🍜焼きうどん', image: 'ryouri01.png' },
+      { name: '🥚親子丼', image: 'ryouri02.png' },
+      { name: '🍝ミートソースパスタ', image: 'ryouri03.png' }
+    ];
+
+    function updateDish() {
+      const random = Math.floor(Math.random() * dishes.length);
+      const dish = dishes[random];
+      document.getElementById('dish-name').textContent = dish.name;
+      document.getElementById('dish-img').src = dish.image;
+    }
+
+    setInterval(updateDish, 2000); // 2秒ごとに更新
   </script>
+
 </body>
 </html>

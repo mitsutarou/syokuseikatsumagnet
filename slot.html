@@ -110,14 +110,14 @@
       { name: '🍝ミートソースパスタ', image: 'ryouri03.png' }
     ];
 
-    function updateDish() {
-      const random = Math.floor(Math.random() * dishes.length);
-      const dish = dishes[random];
-      document.getElementById('dish-name').textContent = dish.name;
-      document.getElementById('dish-img').src = dish.image;
-    }
+    const dishImg = document.getElementById('dish-img');
+    const dishName = document.getElementById('dish-name');
 
-    setInterval(updateDish, 2000); // 2秒ごとに更新
+    setInterval(() => {
+      const randomDish = dishes[Math.floor(Math.random() * dishes.length)];
+      dishImg.src = randomDish.image;
+      dishName.textContent = randomDish.name;
+    }, 100); // ← 高速ルーレットのスピード（100ミリ秒ごとに更新）
   </script>
 
 </body>

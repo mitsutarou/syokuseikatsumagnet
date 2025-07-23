@@ -2,22 +2,87 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>01表示</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>固定ページ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
   <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    html, body {
       margin: 0;
-      font-size: 5rem;
-      font-family: sans-serif;
+      padding: 0;
+      height: 100%;
+      background-color: #f8f7e7;
+      font-family: 'Kosugi Maru', sans-serif;
+      color: #9a7956;
+      overflow: hidden; /* スクロール禁止 */
+    }
+
+    .container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header, .footer {
+      height: 130px; /* +50px */
+      flex-shrink: 0;
+    }
+
+    .header img, .footer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 600px) {
+      .header, .footer {
+        height: 110px;
+      }
+
+      .content {
+        font-size: 1rem;
+        padding: 16px;
+      }
     }
   </style>
 </head>
 <body>
-  01
-  <img src="01.png" alt="01の画像" style="max-width: 100%; height: auto;">
+  <div class="container">
+    <div class="header">
+      <img id="header-img" src="header01.png" alt="ヘッダー画像">
+    </div>
+
+    <div class="content">
+      <p>
+        ここにテキストが入ります。<br>
+        上下に同じアニメーション画像が交互に表示されます。
+      </p>
+    </div>
+
+    <div class="footer">
+      <img id="footer-img" src="header01.png" alt="フッター画像">
+    </div>
+  </div>
+
+  <script>
+    const headerImages = ['header01.png', 'header02.png'];
+    let index = 0;
+
+    setInterval(() => {
+      index = (index + 1) % 2;
+      const nextSrc = headerImages[index];
+      document.getElementById('header-img').src = nextSrc;
+      document.getElementById('footer-img').src = nextSrc;
+    }, 500);
+  </script>
 </body>
 </html>
-

@@ -7,35 +7,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Zen Kaku Gothic New', sans-serif;
-      background-color: #f8f7e7;
-      color: #9a7956;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  background-color: #f8f7e7;
+  color: #9a7956;
+  margin: 0;
+  padding: 10px 0; /* ← 追加：上下10pxずつ */
+  overflow: hidden;
+}
 
-    header, footer {
-      height: 70px;
-      width: 100%;
-      overflow: hidden;
-    }
+header, footer {
+  height: 70px;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
-    header img, footer img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
+header {
+  margin-top: 10px; /* ← ヘッダーを少し下へ */
+}
 
-    .main-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: calc(100vh - 140px); /* header + footer 高さ分除く */
-      padding: 10px;
-      box-sizing: border-box;
-    }
+footer {
+  margin-bottom: 10px; /* ← フッターを少し上へ */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 160px); /* ← 元140px → 160pxへ調整 */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
 
     #title-image {
       width: 220px;
